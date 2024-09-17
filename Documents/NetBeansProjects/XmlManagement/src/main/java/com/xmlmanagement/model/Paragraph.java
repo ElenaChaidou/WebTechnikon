@@ -10,7 +10,7 @@ import lombok.Setter;
 import java.util.List;
 
 import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlElementWrapper;
+import jakarta.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 import java.util.List;
 import lombok.Getter;
@@ -19,9 +19,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @XmlAccessorType(XmlAccessType.FIELD) 
+@XmlType(name = "", propOrder = {
+    "lines"
+})
 public class Paragraph implements Serializable{
     
-//    @XmlElementWrapper(name = "lines")
     @XmlElement(name = "lines")
-    private List<String> lines;
+    private List<Line> lines;
 }

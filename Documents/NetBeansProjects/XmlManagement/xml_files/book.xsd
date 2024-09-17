@@ -1,29 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:element name="book" type="book"/>
-
-  <xs:complexType name="book">
-    <xs:sequence>
-      <xs:element name="title" type="xs:string" minOccurs="0"/>
-      <xs:element name="author" type="xs:string" minOccurs="0"/>
-      <xs:element name="chapter" type="chapter" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="statistics" type="statistics" minOccurs="0"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="chapter">
-    <xs:sequence>
-      <xs:element name="title" type="xs:string" minOccurs="0"/>
-      <xs:element name="paragraph" type="paragraph" minOccurs="0" maxOccurs="unbounded"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="paragraph">
-    <xs:sequence>
-      <xs:element name="lines" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
-    </xs:sequence>
-  </xs:complexType>
+  <xs:element name="book">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="title" type="xs:string" minOccurs="0"/>
+        <xs:element name="author" type="xs:string" minOccurs="0"/>
+        <xs:element name="chapter" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="title" type="xs:string" minOccurs="0"/>
+              <xs:element name="paragraph" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="lines" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="line" type="xs:string" minOccurs="0"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="statistics" type="statistics" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 
   <xs:complexType name="statistics">
     <xs:sequence>

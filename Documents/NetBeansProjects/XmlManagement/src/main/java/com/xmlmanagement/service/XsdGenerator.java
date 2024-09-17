@@ -39,13 +39,4 @@ public class XsdGenerator {
             return result;
         }
     }
-
-    public static void main(String[] args) {
-        try {
-            xsdGenerator();
-            System.out.println("XSD schema generated successfully.");
-        } catch (IOException e) {
-            System.err.println("Error generating XSD schema: " + e.getMessage());
-        }
-    }
 }

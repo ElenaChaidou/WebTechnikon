@@ -1,10 +1,10 @@
 package com.xmlmanagement.model;
 
-import java.io.Serializable;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 
 import jakarta.xml.bind.annotation.XmlElement;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.xml.bind.annotation.XmlType;
 
 import java.io.Serializable;
 import lombok.Getter;
@@ -12,7 +12,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "", propOrder = {
+    "line"
+})
+
 public class Line implements Serializable{
-    @XmlElement(name = "line")
-    private String word;
+    
+    private String line;
 }

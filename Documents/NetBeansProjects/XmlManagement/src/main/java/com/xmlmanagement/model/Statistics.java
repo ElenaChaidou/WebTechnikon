@@ -1,11 +1,6 @@
 package com.xmlmanagement.model;
 
 import java.io.Serializable;
-import lombok.Getter;
-import lombok.Setter;
-import java.time.LocalDateTime;
-
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
