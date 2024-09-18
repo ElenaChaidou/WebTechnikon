@@ -4,19 +4,20 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
-import java.io.Serializable;
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+import java.util.List;
+
 @Getter
 @Setter
-@XmlAccessorType(XmlAccessType.FIELD) 
+@XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "lines"
+        "line"
 })
-public class Paragraph implements Serializable{
-    
-    @XmlElement(name = "lines")
-    private List<Lines> lines;
+public class Lines implements Serializable {
+
+    @XmlElement(name = "line")
+    private List<String> line;
 }

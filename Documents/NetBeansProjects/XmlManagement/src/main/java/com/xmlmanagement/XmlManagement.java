@@ -37,7 +37,7 @@ public class XmlManagement {
 
         ReadSpecificElements extractor = new ReadSpecificElements();
         try {
-            extractor.extractChapters("xml_files/book.xml", "xml_files/book2", 3, 7);
+            extractor.extractChapters("xml_files/book.xml", "xml_files/book2.xml", 3, 7);
             System.out.println("Selected chapters have been written to the new XML file.");
         } catch (XMLStreamException | IOException e) {
             System.err.println("Error during XML processing: " + e.getMessage());
