@@ -8,6 +8,8 @@ public interface RepairRepositoryInterface<T, K, D> {
     Optional<T> findById(K repairId);
 
     List<T> findByPropertyId(K propertyId);
+    
+    List<T> findByOwnerId(K propertyId);
 
     List<T> findByDate(D date);
 

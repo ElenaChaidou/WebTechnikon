@@ -1,5 +1,6 @@
 package gr.webtechnikon.repositories;
 
+import gr.webtechnikon.enums.RepairStatus;
 import gr.webtechnikon.exceptions.ResourceNotFoundException;
 import gr.webtechnikon.model.Repair;
 import gr.webtechnikon.utility.JPAUtil;
@@ -13,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 //@ApplicationScoped 
@@ -58,6 +60,26 @@ public class RepairRepository implements RepairRepositoryInterface<Repair, Long,
                 entityManager.getTransaction().rollback();
             }
             log.error("Error finding repairs by Property ID: " + propertyId, e);
+        }
+        return List.of();
+    }
+    
+    @Transactional
+    @Override
+    public List<Repair> findByOwnerId(Long ownerId) {
+        try {
+            entityManager.getTransaction().begin();
+            TypedQuery<Repair> query = entityManager.createQuery(
+                    "SELECT repair FROM Repair repair WHERE repair.property.propertyId = :propertyId", Repair.class);
+            query.setParameter("propertyId", ownerId);
+            List<Repair> repairs = query.getResultList();
+            entityManager.getTransaction().commit();
+            return repairs;
+        } catch (Exception e) {
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
+            log.error("Error finding repairs by Property ID: " + ownerId, e);
         }
         return List.of();
     }
@@ -175,5 +197,12 @@ public class RepairRepository implements RepairRepositoryInterface<Repair, Long,
             log.error("Error safely deleting repair with ID: " + repairId, e);
         }
         return false;
+    }
+    
+        public List<Repair> getPendingRepairs() {
+        RepairRepository getRepairs = new RepairRepository();
+        List<Repair> allRepairs = getRepairs.findAll();
+        return allRepairs.stream().filter((Repair pendingRepair) -> RepairStatus.PENDING.equals(pendingRepair.getRepairStatus())).collect(Collectors.toList());
+
     }
 }

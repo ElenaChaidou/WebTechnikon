@@ -4,7 +4,11 @@ import gr.webtechnikon.model.Owner;
 import gr.webtechnikon.repositories.PropertyRepositoryInterface;
 import gr.webtechnikon.model.Property;
 import gr.webtechnikon.model.Repair;
+import gr.webtechnikon.repositories.OwnerRepository;
 import gr.webtechnikon.repositories.OwnerRepositoryInterface;
+import gr.webtechnikon.repositories.PropertyRepository;
+import gr.webtechnikon.repositories.RepairRepository;
+import gr.webtechnikon.repositories.RepairRepositoryInterface;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.RequestScoped;
 import lombok.extern.slf4j.Slf4j;
@@ -18,12 +22,12 @@ import jakarta.inject.Inject;
 @Slf4j
 public class OwnerService implements OwnerServiceInterface {
 
-//    private final PropertyRepositoryInterface propertyRepository;
-    //private final OwnerRepositoryInterface ownerRepository;
     @Inject
-    private OwnerRepositoryInterface <Owner, Long, String> ownerRepository;
-//    @Inject
-//    private PropertyRepositoryInterface <Property,Long> propertyRepository;
+    private OwnerRepository ownerRepository;
+    @Inject
+    private PropertyRepository propertyRepository;
+    @Inject
+    private RepairRepository repairRepository;
 
     @Override
     public boolean acceptance(Repair repair) {
@@ -35,16 +39,6 @@ public class OwnerService implements OwnerServiceInterface {
         return acceptance;
 
     }
-//    @Inject
-//    public OwnerService(PropertyRepositoryInterface propertyRepository) {
-//        this.propertyRepository = propertyRepository;
-//    }
-//
-//    @Override
-//    public List<Property> getPropertiesByOwnerId(Long ownerId) {
-//        return propertyRepository.findByOwnerId(ownerId);
-//    }
-
 
     @Override
     public Optional<Owner> findOwnerById(Long ownerId) {
@@ -69,5 +63,50 @@ public class OwnerService implements OwnerServiceInterface {
     @Override
     public boolean safeDeleteOwnerById(Long ownerId) {
         return ownerRepository.safeDeleteById(ownerId);
+    }
+
+    @Override
+    public Optional<Property> getPropertyDetails(Long propertyId) {
+        return propertyRepository.findById(propertyId);
+    }
+
+    @Override
+    public Optional<Property> createProperty(Property property) {
+        return propertyRepository.save(property);
+    }
+
+    @Override
+    public Optional<Property> updateProperty(Long propertyId, Property property) {
+        return propertyRepository.update(property);
+    }
+
+    @Override
+    public boolean deleteProperty(Long propertyId) {
+        return propertyRepository.safeDeleteById(propertyId);
+    }
+
+    @Override
+    public List<Property> getPropertiesByOwnerId(Long ownerId) {
+        return propertyRepository.findByOwnerId(ownerId);
+    }
+
+    @Override
+    public List<Repair> getRepairsForOwner(Long ownerId) {
+        return repairRepository.findByOwnerId(ownerId);
+    }
+
+    @Override
+    public Optional<Repair> createRepair(Repair repair) {
+        return repairRepository.save(repair);
+    }
+
+    @Override
+    public Optional<Repair> updateRepair(Long repairId, Repair repair) {
+        return repairRepository.update(repair);
+    }
+
+    @Override
+    public boolean deleteRepair(Long repairId) {
+        return repairRepository.safeDeleteById(repairId);
     }
 }

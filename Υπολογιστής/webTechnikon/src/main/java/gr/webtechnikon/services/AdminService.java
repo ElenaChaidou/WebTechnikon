@@ -3,24 +3,41 @@ package gr.webtechnikon.services;
 import gr.webtechnikon.repositories.RepairRepository;
 import gr.webtechnikon.repositories.RepairRepositoryInterface;
 import gr.webtechnikon.enums.RepairStatus;
+import gr.webtechnikon.model.Owner;
+import gr.webtechnikon.model.Property;
 import gr.webtechnikon.model.Repair;
+import gr.webtechnikon.repositories.OwnerRepository;
+import gr.webtechnikon.repositories.OwnerRepositoryInterface;
+import gr.webtechnikon.repositories.PropertyRepository;
+import gr.webtechnikon.repositories.PropertyRepositoryInterface;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
 
+@RequestScoped
+@Slf4j
 public class AdminService implements AdminServiceInterface {
 
-    @Override
-    public List<Repair> getPendingRepairs() {
-        RepairRepository getRepairs = new RepairRepository();
-        List<Repair> allRepairs = getRepairs.findAll();
-        return allRepairs.stream().filter((Repair pendingRepair) -> RepairStatus.PENDING.equals(pendingRepair.getRepairStatus())).collect(Collectors.toList());
+    @Inject
+    private OwnerRepository ownerRepository;
+    @Inject
+    private PropertyRepository propertyRepository;
+    @Inject
+    private RepairRepository repairRepository;
 
-    }
-
+//    @Override
+//    public List<Repair> getPendingRepairs() {
+//        RepairRepository getRepairs = new RepairRepository();
+//        List<Repair> allRepairs = getRepairs.findAll();
+//        return allRepairs.stream().filter((Repair pendingRepair) -> RepairStatus.PENDING.equals(pendingRepair.getRepairStatus())).collect(Collectors.toList());
+//
+//    }
     @Override
     public void proposeCost(Long repairId, BigDecimal proposedCost) {
         Repair rp = new Repair();
@@ -86,6 +103,81 @@ public class AdminService implements AdminServiceInterface {
                 repair.setProposedDateOfEnd(proposedEndDate);
             }
         }
+    }
+
+    @Override
+    public Optional<Owner> createOwner(Owner owner) {
+        return ownerRepository.save(owner);
+    }
+
+    @Override
+    public Optional<Owner> updateOwner(Owner owner) {
+        return ownerRepository.update(owner);
+    }
+
+    @Override
+    public boolean deleteOwner(Long ownerId) {
+        return ownerRepository.safeDeleteById(ownerId);
+    }
+
+    @Override
+    public Optional<Owner> searchOwnerById(Long ownerId) {
+        return ownerRepository.findByOwnerId(ownerId);
+    }
+
+    @Override
+    public Optional<Owner> searchOwnerByVatNumber(Long vatNumber) {
+        return ownerRepository.findByVatNumber(vatNumber);
+    }
+
+    @Override
+    public List<Property> getAllProperties() {
+        return propertyRepository.findAll();
+    }
+
+    @Override
+    public Optional<Property> createProperty(Property property) {
+        return propertyRepository.save(property);
+    }
+
+    @Override
+    public Optional<Property> updateProperty(Property property) {
+        return propertyRepository.update(property);
+    }
+
+    @Override
+    public boolean deleteProperty(Long propertyId) {
+        return propertyRepository.safeDeleteById(propertyId);
+    }
+
+    @Override
+    public List<Repair> getPendingRepairs() {
+        return repairRepository.getPendingRepairs();
+    }
+
+    @Override
+    public Optional<Repair> createRepair(Repair repair) {
+        return repairRepository.save(repair);
+    }
+
+    @Override
+    public Optional<Repair> updateRepair(Repair repair) {
+        return repairRepository.update(repair);
+    }
+
+    @Override
+    public boolean deleteRepair(Long repairId) {
+        return repairRepository.safeDeleteById(repairId);
+    }
+
+//    @Override
+//    public List<Repair> getRepairsByDate(String date) {
+//        return repairRepository.findByDate(date);
+//    }
+
+    @Override
+    public List<Repair> getRepairsByOwnerId(Long ownerId) {
+        return repairRepository.findByOwnerId(ownerId);
     }
 
 }
