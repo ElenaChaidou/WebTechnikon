@@ -54,7 +54,6 @@ public class OwnerResource {
     @Consumes("application/json")
     @Produces("application/json")
     public Response updateOwner(@PathParam("id") Long id, Owner owner) {
-        // Ensure that the owner ID in the request body matches the ID in the path parameter
         if (owner.getOwnerId() != id) {
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity("Owner ID in the path does not match the ID in the request body").build();
@@ -76,7 +75,7 @@ public class OwnerResource {
     public Response deleteOwner(@PathParam("id") Long id) {
         boolean isDeleted = ownerService.safeDeleteOwnerById(id);
         if (isDeleted) {
-            return Response.noContent().build(); // 204 No Content
+            return Response.noContent().build(); 
         } else {
             return Response.status(Response.Status.NOT_FOUND).entity("Owner not found").build();
         }
@@ -116,7 +115,7 @@ public class OwnerResource {
         if (ownerOpt.isPresent()) {
             Owner owner = ownerOpt.get();
 
-            // Create the Property with the Owner instance
+            
             Property newProperty = new Property(
                     property.getPropertyCode(),
                     property.getAddress(),
@@ -172,7 +171,7 @@ public class OwnerResource {
         }
     }
 
-    // Update an existing repair
+    
     @PUT
     @Path("/repairs/{repairId}")
     public Response updateRepair(@PathParam("repairId") Long repairId, Repair repair) {
