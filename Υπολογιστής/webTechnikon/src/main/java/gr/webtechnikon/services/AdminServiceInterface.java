@@ -23,16 +23,20 @@ public interface AdminServiceInterface {
     boolean deleteOwner(Long ownerId);
     Optional<Owner> searchOwnerById(Long ownerId);
     Optional<Owner> searchOwnerByVatNumber(Long vatNumber);
+    Optional<Owner> searchOwnerByEmail(String email);
     
     List<Property> getAllProperties();
     Optional<Property> createProperty(Property property);
     Optional<Property> updateProperty(Property property);
     boolean deleteProperty(Long propertyId);
+    List<Property> searchPropertyByVatNumber(Long vatNumber);
+    Optional<Property> searchPropertyById(Long propertyId);
     
+    List<Repair> getAllRepairs();
     Optional<Repair> createRepair(Repair repair);
     Optional<Repair> updateRepair(Repair repair);
     boolean deleteRepair(Long repairId);
-//    List<Repair> getRepairsByDate(String date);
+    List<Repair> getRepairsByDate(Date date);
     List<Repair> getRepairsByOwnerId(Long ownerId);
 
 }

@@ -13,6 +13,7 @@ import gr.webtechnikon.repositories.PropertyRepositoryInterface;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -69,12 +70,11 @@ public class AdminService implements AdminServiceInterface {
 
     }
 
-    public List<Repair> getAllRepairs() {
-        RepairRepository getRepairs = new RepairRepository();
-        List<Repair> allRepairs = getRepairs.findAll();
-        return getRepairs.findAll();
-    }
-
+//    public List<Repair> getAllRepairs() {
+//        RepairRepository getRepairs = new RepairRepository();
+//        List<Repair> allRepairs = getRepairs.findAll();
+//        return getRepairs.findAll();
+//    }
     @Override
     public List<Date> checkActuallDate(Long repairId) {
         RepairRepository rr = new RepairRepository();
@@ -131,6 +131,11 @@ public class AdminService implements AdminServiceInterface {
     }
 
     @Override
+    public Optional<Owner> searchOwnerByEmail(String email) {
+        return ownerRepository.findByEmail(email);
+    }
+
+    @Override
     public List<Property> getAllProperties() {
         return propertyRepository.findAll();
     }
@@ -149,10 +154,25 @@ public class AdminService implements AdminServiceInterface {
     public boolean deleteProperty(Long propertyId) {
         return propertyRepository.safeDeleteById(propertyId);
     }
+    
+    @Override
+    public List<Property> searchPropertyByVatNumber(Long vatNumber) {
+        return propertyRepository.findByVatNumber(vatNumber);
+    }
+    
+    @Override
+    public Optional<Property> searchPropertyById(Long propertyId) {
+        return propertyRepository.findById(propertyId);
+    }
 
     @Override
     public List<Repair> getPendingRepairs() {
         return repairRepository.getPendingRepairs();
+    }
+
+    @Override
+    public List<Repair> getAllRepairs() {
+        return repairRepository.findAll();
     }
 
     @Override
@@ -170,11 +190,11 @@ public class AdminService implements AdminServiceInterface {
         return repairRepository.safeDeleteById(repairId);
     }
 
-//    @Override
-//    public List<Repair> getRepairsByDate(String date) {
-//        return repairRepository.findByDate(date);
-//    }
-
+    @Override
+    public List<Repair> getRepairsByDate(Date date) {
+        return repairRepository.findByDate(date);
+    }
+    
     @Override
     public List<Repair> getRepairsByOwnerId(Long ownerId) {
         return repairRepository.findByOwnerId(ownerId);

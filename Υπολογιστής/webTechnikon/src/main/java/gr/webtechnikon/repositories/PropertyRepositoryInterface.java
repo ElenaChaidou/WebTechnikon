@@ -9,6 +9,8 @@ public interface PropertyRepositoryInterface<T, K> {
     Optional<T> findById(K id);
 
     List<T> findByOwnerId(K ownerId);
+    
+    List<T> findByVatNumber(K ownerId);
 
     List<T> findAll();
 
