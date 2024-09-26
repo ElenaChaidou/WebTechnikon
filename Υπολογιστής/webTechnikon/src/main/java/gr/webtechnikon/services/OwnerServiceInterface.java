@@ -10,7 +10,7 @@ public interface OwnerServiceInterface {
 
     boolean acceptance(Repair repair);
 
-    List<Property> getPropertiesByOwnerId(Long ownerId);
+//    List<Property> getPropertiesByOwnerId(Long ownerId);
     
     Optional<Owner> findOwnerById(Long ownerId);
     List<Owner> findAllOwners();

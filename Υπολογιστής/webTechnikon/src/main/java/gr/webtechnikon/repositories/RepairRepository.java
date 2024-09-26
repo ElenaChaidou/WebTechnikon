@@ -8,6 +8,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import java.util.Date;
 import java.util.List;
@@ -27,6 +28,7 @@ public class RepairRepository implements RepairRepositoryInterface<Repair, Long,
         entityManager = JPAUtil.getEntityManager();
     }
 
+    @Transactional
     @Override
     public Optional<Repair> findById(Long repairId) {
         try {
@@ -39,7 +41,8 @@ public class RepairRepository implements RepairRepositoryInterface<Repair, Long,
         }
         return Optional.empty();
     }
-
+    
+    @Transactional
     @Override
     public List<Repair> findByPropertyId(Long propertyId) {
         try {
@@ -58,7 +61,8 @@ public class RepairRepository implements RepairRepositoryInterface<Repair, Long,
         }
         return List.of();
     }
-
+    
+    @Transactional
     @Override
     public List<Repair> findByDate(Date dateOfStart) {
         try {
@@ -74,7 +78,8 @@ public class RepairRepository implements RepairRepositoryInterface<Repair, Long,
         }
         return List.of();
     }
-
+    
+    @Transactional
     @Override
     public List<Repair> findByRangeDates(Date dateOfStart, Date dateOfEnd) {
         try {
@@ -91,6 +96,7 @@ public class RepairRepository implements RepairRepositoryInterface<Repair, Long,
         }
         return List.of();
     }
+    @Transactional
 
     @Override
     public List<Repair> findAll() {
@@ -103,7 +109,8 @@ public class RepairRepository implements RepairRepositoryInterface<Repair, Long,
         }
         return List.of();
     }
-
+    
+    @Transactional
     @Override
     public Optional<Repair> save(Repair repair) {
         try {
@@ -117,7 +124,8 @@ public class RepairRepository implements RepairRepositoryInterface<Repair, Long,
         }
         return Optional.empty();
     }
-
+    
+    @Transactional
     @Override
     public Optional<Repair> update(Repair repair) {
         try {
@@ -131,7 +139,8 @@ public class RepairRepository implements RepairRepositoryInterface<Repair, Long,
         }
         return Optional.empty();
     }
-
+    
+    @Transactional
     @Override
     public boolean deleteById(Long repairId) {
         try {
@@ -148,7 +157,8 @@ public class RepairRepository implements RepairRepositoryInterface<Repair, Long,
         }
         return false;
     }
-
+    
+    @Transactional
     @Override
     public boolean safeDeleteById(Long repairId) {
         try {

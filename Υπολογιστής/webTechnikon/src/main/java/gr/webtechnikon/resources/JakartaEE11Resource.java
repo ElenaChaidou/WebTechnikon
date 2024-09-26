@@ -4,7 +4,7 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.Response;
 
-@Path("resources")
+@Path("jen")
 public class JakartaEE11Resource {
     
     @GET

@@ -8,6 +8,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 import java.text.ParseException;
 import lombok.extern.slf4j.Slf4j;
 import java.util.List;
@@ -26,7 +27,8 @@ public class PropertyRepository implements PropertyRepositoryInterface<Property,
     public PropertyRepository() {
         entityManager = JPAUtil.getEntityManager();
     }
-
+    
+    @Transactional
     @Override
     public Optional<Property> findById(Long propertyId) {
         try {
@@ -39,7 +41,8 @@ public class PropertyRepository implements PropertyRepositoryInterface<Property,
         }
         return Optional.empty();
     }
-
+    
+    @Transactional
     @Override
     public List<Property> findByOwnerId(Long ownerId) {
         try {
@@ -56,7 +59,8 @@ public class PropertyRepository implements PropertyRepositoryInterface<Property,
         }
         return List.of();
     }
-
+    
+    @Transactional
     @Override
     public List<Property> findAll() {
         try {
@@ -68,7 +72,8 @@ public class PropertyRepository implements PropertyRepositoryInterface<Property,
             return List.of();
         }
     }
-
+    
+    @Transactional
     @Override
     public Optional<Property> save(Property property) {
         try {
@@ -83,6 +88,7 @@ public class PropertyRepository implements PropertyRepositoryInterface<Property,
         return Optional.empty();
     }
 
+    @Transactional
     @Override
     public boolean deleteById(Long propertyId) {
         try {
@@ -99,7 +105,8 @@ public class PropertyRepository implements PropertyRepositoryInterface<Property,
         }
         return false;
     }
-
+    
+    @Transactional
     @Override
     public boolean safeDeleteById(Long propertyId) {
         try {
@@ -117,7 +124,8 @@ public class PropertyRepository implements PropertyRepositoryInterface<Property,
         }
         return false;
     }
-
+    
+    @Transactional
     @Override
     public Optional<Property> update(Property property) {
         try {

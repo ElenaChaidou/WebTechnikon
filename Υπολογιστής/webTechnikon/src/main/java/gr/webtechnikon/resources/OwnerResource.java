@@ -26,9 +26,8 @@ public class OwnerResource {
 //        this.ownerService = ownerService;
 //    }
     
-    
-    @GET
     @Path("{id}")
+    @GET
     public Response getOwnerById(@PathParam("id") Long ownerId) {
         Optional<Owner> owner = ownerService.findOwnerById(ownerId);
         if (owner.isPresent()) {
@@ -37,7 +36,7 @@ public class OwnerResource {
             return Response.status(Response.Status.NOT_FOUND).entity("Owner not found").build();
         }
     }
-    
+    @Path("/all")
     @GET
     public Response getAllOwners() {
         List<Owner> owners = ownerService.findAllOwners();

@@ -22,8 +22,8 @@ public class OwnerService implements OwnerServiceInterface {
     //private final OwnerRepositoryInterface ownerRepository;
     @Inject
     private OwnerRepositoryInterface <Owner, Long, String> ownerRepository;
-    @Inject
-    private PropertyRepositoryInterface <Property,Long> propertyRepository;
+//    @Inject
+//    private PropertyRepositoryInterface <Property,Long> propertyRepository;
 
     @Override
     public boolean acceptance(Repair repair) {
@@ -35,15 +35,15 @@ public class OwnerService implements OwnerServiceInterface {
         return acceptance;
 
     }
-
-    public OwnerService(PropertyRepositoryInterface propertyRepository) {
-        this.propertyRepository = propertyRepository;
-    }
-
-    @Override
-    public List<Property> getPropertiesByOwnerId(Long ownerId) {
-        return propertyRepository.findByOwnerId(ownerId);
-    }
+//    @Inject
+//    public OwnerService(PropertyRepositoryInterface propertyRepository) {
+//        this.propertyRepository = propertyRepository;
+//    }
+//
+//    @Override
+//    public List<Property> getPropertiesByOwnerId(Long ownerId) {
+//        return propertyRepository.findByOwnerId(ownerId);
+//    }
 
 
     @Override
