@@ -64,6 +64,8 @@ public class AdminResource {
             return Response.status(Response.Status.BAD_REQUEST).entity("Failed to create owner").build();
         }
     }
+    
+    //works
 
     @Path("/updateOwner/{id}")
     @PUT
@@ -94,6 +96,9 @@ public class AdminResource {
 //                    .entity("Owner with ID " + id + " not found").build();
 //        }
 //    }
+    
+    //works
+    
     @Path("/owners/{id}")
     @GET
 //    public Response getOwnerById(@PathParam("id") Long id) {
@@ -114,8 +119,11 @@ public class AdminResource {
     @GET
     public Response getOwnerByVatNumber(@PathParam("vatNumber") Long vatNumber) {
         Optional<Owner> owner = adminService.searchOwnerByVatNumber(vatNumber);
-        return owner.map(value -> Response.ok(value).build())
-                .orElseGet(() -> Response.status(Response.Status.NOT_FOUND).entity("Owner not found").build());
+        if (owner.isPresent()) {
+            return Response.ok(owner.get()).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).entity("Owner not found").build();
+        }
     }
 
     @Path("/owners/email/{email}")
@@ -125,15 +133,33 @@ public class AdminResource {
         return owner.map(value -> Response.ok(value).build())
                 .orElseGet(() -> Response.status(Response.Status.NOT_FOUND).entity("Owner not found").build());
     }
-
-    @Path("/createProperties")
+    
+    
+    @Path("/{ownerId}/properties")
     @POST
-    public Response createProperty(Property property) {
-        Optional<Property> createdProperty = adminService.createProperty(property);
-        if (createdProperty.isPresent()) {
-            return Response.status(Response.Status.CREATED).entity(createdProperty.get()).build();
+    public Response createProperty(@PathParam("ownerId") Long ownerId, Property property) {
+
+        Optional<Owner> ownerOpt = adminService.findOwnerById(ownerId);
+
+        if (ownerOpt.isPresent()) {
+            Owner owner = ownerOpt.get();
+
+            Property newProperty = new Property(
+                    property.getPropertyCode(),
+                    property.getAddress(),
+                    property.getYearOfConstruction(),
+                    property.getPropertyType(),
+                    owner
+            );
+
+            Optional<Property> createdProperty = adminService.createProperty(newProperty);
+            if (createdProperty.isPresent()) {
+                return Response.status(Response.Status.CREATED).entity(createdProperty.get()).build();
+            } else {
+                return Response.status(Response.Status.BAD_REQUEST).entity("Failed to create property").build();
+            }
         } else {
-            return Response.status(Response.Status.BAD_REQUEST).entity("Failed to create property").build();
+            return Response.status(Response.Status.NOT_FOUND).entity("Owner not found").build();
         }
     }
 

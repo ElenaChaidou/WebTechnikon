@@ -104,6 +104,9 @@ public class AdminService implements AdminServiceInterface {
             }
         }
     }
+    public Optional<Owner> findOwnerById(Long ownerId) {
+        return ownerRepository.findByOwnerId(ownerId);
+    }
 
     @Override
     public Optional<Owner> createOwner(Owner owner) {

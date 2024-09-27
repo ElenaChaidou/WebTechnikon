@@ -32,21 +32,34 @@ public class OwnerRepository implements OwnerRepositoryInterface<Owner, Long, St
         }
         return Optional.empty();
     }
-
+    
     @Override
     @Transactional
     public Optional<Owner> findByVatNumber(Long vatNumber) {
         try {
-            TypedQuery<Owner> query = entityManager.createQuery(
-                    "SELECT o FROM Owner o WHERE o.VatNumber = :vatNumber AND o.deleted = false", Owner.class);
-            query.setParameter("vatNumber", vatNumber);
-            Owner owner = query.getSingleResult();
-            return Optional.of(owner);
-        } catch (Exception e) {
-            log.debug("Could not find an Owner with VAT number: {}", vatNumber, e);
+            Owner owner = entityManager.find(Owner.class, vatNumber);
+            return Optional.ofNullable(owner);
+        } catch (OwnerNotFoundException onfe) {
+            log.debug("Could not find Owner with VT: " + vatNumber);
+            System.out.println(onfe.getMessage());
         }
         return Optional.empty();
     }
+
+//    @Override
+//    @Transactional
+//    public Optional<Owner> findByVatNumber(Long vatNumber) {
+//        try {
+//            TypedQuery<Owner> query = entityManager.createQuery(
+//                    "SELECT o FROM Owner o WHERE o.VatNumber = :vatNumber AND o.deleted = false", Owner.class);
+//            query.setParameter("vatNumber", vatNumber);
+//            Owner owner = query.getSingleResult();
+//            return Optional.of(owner);
+//        } catch (Exception e) {
+//            log.debug("Could not find an Owner with VAT number: {}", vatNumber, e);
+//        }
+//        return Optional.empty();
+//    }
 
     @Override
     @Transactional
