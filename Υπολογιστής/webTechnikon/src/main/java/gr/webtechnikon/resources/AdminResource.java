@@ -150,15 +150,35 @@ public class AdminResource {
 //        List<Property> properties = adminService.getAllProperties();
 //        return Response.ok(properties).build();
 //    }
-
     @GET
     @Path("/properties/vat/{vatNumber}")
     public Response getPropertiesByVatNumber(@PathParam("vatNumber") Long vatNumber) {
-        List<Property> properties = adminService.searchPropertyByVatNumber(vatNumber);
-        if (properties.isEmpty()) {
-            return Response.status(Response.Status.NOT_FOUND).entity("No properties found for VAT number: " + vatNumber).build();
+        try {
+            Optional<Owner> ownerOptional = adminService.searchOwnerByVatNumber(vatNumber);
+
+            if (ownerOptional.isEmpty()) {
+                return Response.status(Response.Status.NOT_FOUND)
+                        .entity("No owner found with VAT number: " + vatNumber)
+                        .build();
+            }
+
+            Owner owner = ownerOptional.get();
+            Long ownerId = owner.getOwnerId();
+
+            List<Property> properties = adminService.searchPropertyOwnerId(ownerId);
+
+            if (properties.isEmpty()) {
+                return Response.status(Response.Status.NOT_FOUND)
+                        .entity("No properties found for owner with VAT number: " + vatNumber)
+                        .build();
+            }
+            return Response.ok(properties).build();
+        } catch (Exception e) {
+
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("An error occurred: " + e.getMessage())
+                    .build();
         }
-        return Response.ok(properties).build();
     }
 
     @GET
@@ -206,7 +226,7 @@ public class AdminResource {
         }
         return Response.ok(repair).build();
     }
-    
+
     @GET
     @Path("/repairs/{date}")
     public Response getRepairsByDate(@PathParam("date") Date date) {
