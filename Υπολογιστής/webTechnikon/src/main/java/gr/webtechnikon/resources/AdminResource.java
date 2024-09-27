@@ -5,10 +5,19 @@ import gr.webtechnikon.model.Owner;
 import gr.webtechnikon.model.Property;
 import gr.webtechnikon.model.Repair;
 import gr.webtechnikon.services.AdminService;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -18,8 +27,11 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
 
 @Path("/admin")
+@Slf4j
+@RequestScoped
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class AdminResource {
@@ -27,8 +39,8 @@ public class AdminResource {
     @Inject
     private AdminService adminService;
 
-    @POST
     @Path("/active-repairs")
+    @POST
     public List<Repair> getAllRepairsOfTheDay() {
         LocalDate today = LocalDate.now();
         Logger.getLogger(AdminResource.class.getName()).log(Level.INFO, "Today is: " + today);
@@ -42,8 +54,8 @@ public class AdminResource {
         return null;
     }
 
-    @POST
     @Path("/createOwners")
+    @POST
     public Response createOwner(Owner owner) {
         Optional<Owner> createdOwner = adminService.createOwner(owner);
         if (createdOwner.isPresent()) {
@@ -53,8 +65,9 @@ public class AdminResource {
         }
     }
 
-    @PUT
     @Path("/updateOwner/{id}")
+    @PUT
+
     public Response updateOwner(@PathParam("id") Long id, Owner owner) {
         if (owner.getOwnerId() != id) {
             return Response.status(Response.Status.BAD_REQUEST)
@@ -81,32 +94,40 @@ public class AdminResource {
 //                    .entity("Owner with ID " + id + " not found").build();
 //        }
 //    }
-    @GET
     @Path("/owners/{id}")
+    @GET
+//    public Response getOwnerById(@PathParam("id") Long id) {
+//        Optional<Owner> owner = adminService.searchOwnerById(id);
+//        return owner.map(value -> Response.ok(value).build())
+//                .orElseGet(() -> Response.status(Response.Status.NOT_FOUND).entity("Owner not found").build());
+//    }
     public Response getOwnerById(@PathParam("id") Long id) {
         Optional<Owner> owner = adminService.searchOwnerById(id);
-        return owner.map(value -> Response.ok(value).build())
-                .orElseGet(() -> Response.status(Response.Status.NOT_FOUND).entity("Owner not found").build());
+        if (owner.isPresent()) {
+            return Response.ok(owner.get()).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).entity("Owner not found").build();
+        }
     }
 
-    @GET
     @Path("/owners/vat/{vatNumber}")
+    @GET
     public Response getOwnerByVatNumber(@PathParam("vatNumber") Long vatNumber) {
         Optional<Owner> owner = adminService.searchOwnerByVatNumber(vatNumber);
         return owner.map(value -> Response.ok(value).build())
                 .orElseGet(() -> Response.status(Response.Status.NOT_FOUND).entity("Owner not found").build());
     }
 
-    @GET
     @Path("/owners/email/{email}")
+    @GET
     public Response getOwnerByEmail(@PathParam("email") String Email) {
         Optional<Owner> owner = adminService.searchOwnerByEmail(Email);
         return owner.map(value -> Response.ok(value).build())
                 .orElseGet(() -> Response.status(Response.Status.NOT_FOUND).entity("Owner not found").build());
     }
 
-    @POST
     @Path("/createProperties")
+    @POST
     public Response createProperty(Property property) {
         Optional<Property> createdProperty = adminService.createProperty(property);
         if (createdProperty.isPresent()) {
@@ -116,8 +137,8 @@ public class AdminResource {
         }
     }
 
-    @PUT
     @Path("/updateProperties/{id}")
+    @PUT
     public Response updateProperty(@PathParam("id") Long id, Property property) {
         if (property.getPropertyId() != id) {
             return Response.status(Response.Status.BAD_REQUEST)
@@ -150,8 +171,8 @@ public class AdminResource {
 //        List<Property> properties = adminService.getAllProperties();
 //        return Response.ok(properties).build();
 //    }
-    @GET
     @Path("/properties/vat/{vatNumber}")
+    @GET
     public Response getPropertiesByVatNumber(@PathParam("vatNumber") Long vatNumber) {
         try {
             Optional<Owner> ownerOptional = adminService.searchOwnerByVatNumber(vatNumber);
@@ -181,16 +202,16 @@ public class AdminResource {
         }
     }
 
-    @GET
     @Path("/properties/id/{id}")
+    @GET
     public Response getPropertiesById(@PathParam("id") Long id) {
         Optional<Property> property = adminService.searchPropertyById(id);
         return property.map(value -> Response.ok(value).build())
                 .orElseGet(() -> Response.status(Response.Status.NOT_FOUND).entity("Property not found").build());
     }
 
-    @POST
     @Path("/createRepair")
+    @POST
     public Response createRepair(Repair repair) {
         Optional<Repair> createdRepair = adminService.createRepair(repair);
         if (createdRepair.isPresent()) {
@@ -200,8 +221,8 @@ public class AdminResource {
         }
     }
 
-    @PUT
     @Path("/updateRepairs/{id}")
+    @PUT
     public Response updateRepair(@PathParam("id") Long id, Repair repair) {
         if (repair.getRepairId() != id) {
             return Response.status(Response.Status.BAD_REQUEST)
@@ -217,8 +238,8 @@ public class AdminResource {
         }
     }
 
-    @GET
     @Path("/repairs/{ownerId}")
+    @GET
     public Response getRepairsByUserId(@PathParam("ownerId") Long ownerId) {
         List<Repair> repair = adminService.getRepairsByOwnerId(ownerId);
         if (repair.isEmpty()) {
@@ -227,8 +248,8 @@ public class AdminResource {
         return Response.ok(repair).build();
     }
 
-    @GET
     @Path("/repairs/{date}")
+    @GET
     public Response getRepairsByDate(@PathParam("date") Date date) {
         List<Repair> repair = adminService.getRepairsByDate(date);
         if (repair.isEmpty()) {

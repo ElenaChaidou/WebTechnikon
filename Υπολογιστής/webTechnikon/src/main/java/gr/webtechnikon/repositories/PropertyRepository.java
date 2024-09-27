@@ -13,22 +13,16 @@ import java.text.ParseException;
 import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.util.Optional;
+import lombok.NoArgsConstructor;
 
 @Slf4j
 @RequestScoped
-//@ApplicationScoped
+@NoArgsConstructor
 public class PropertyRepository implements PropertyRepositoryInterface<Property, Long> {
-    
-     @PersistenceContext(unitName = "Persistence")
-    private  EntityManager entityManager;
 
-//    private final EntityManager entityManager;
+    @PersistenceContext(unitName = "Persistence")
+    private EntityManager entityManager;
 
-    public PropertyRepository() {
-        entityManager = JPAUtil.getEntityManager();
-    }
-    
-    @Transactional
     @Override
     public Optional<Property> findById(Long propertyId) {
         try {
@@ -41,8 +35,7 @@ public class PropertyRepository implements PropertyRepositoryInterface<Property,
         }
         return Optional.empty();
     }
-    
-    @Transactional
+
     @Override
     public List<Property> findByOwnerId(Long ownerId) {
         try {
@@ -59,7 +52,7 @@ public class PropertyRepository implements PropertyRepositoryInterface<Property,
         }
         return List.of();
     }
-    
+
 //    @Transactional
 //    @Override
 //    public List<Property> findByVatNumber(Long vatNumber) {
@@ -77,9 +70,8 @@ public class PropertyRepository implements PropertyRepositoryInterface<Property,
 //        }
 //        return List.of();
 //    }
-    
-    @Transactional
     @Override
+    @Transactional
     public List<Property> findAll() {
         try {
             TypedQuery<Property> query = entityManager.createQuery(
@@ -90,9 +82,9 @@ public class PropertyRepository implements PropertyRepositoryInterface<Property,
             return List.of();
         }
     }
-    
-    @Transactional
+
     @Override
+    @Transactional
     public Optional<Property> save(Property property) {
         try {
             entityManager.getTransaction().begin();
@@ -106,8 +98,8 @@ public class PropertyRepository implements PropertyRepositoryInterface<Property,
         return Optional.empty();
     }
 
-    @Transactional
     @Override
+    @Transactional
     public boolean deleteById(Long propertyId) {
         try {
             Property property = entityManager.find(Property.class, propertyId);
@@ -123,27 +115,23 @@ public class PropertyRepository implements PropertyRepositoryInterface<Property,
         }
         return false;
     }
-    
-    @Transactional
+
     @Override
+    @Transactional
     public boolean safeDeleteById(Long propertyId) {
-        try {
-            Property property = entityManager.find(Property.class, propertyId);
-            if (property != null) {
-                entityManager.getTransaction().begin();
-                property.setDeletedProperty(true);
-                entityManager.merge(property);
-                entityManager.getTransaction().commit();
+        Property persistentInstance = entityManager.find(Property.class, propertyId);
+        if (persistentInstance != null) {
+            try {
+                persistentInstance.setDeletedProperty(true);
+                entityManager.merge(persistentInstance);
                 return true;
+            } catch (Exception e) {
+                log.debug("Could not safely delete Property", e);
             }
-        } catch (Exception e) {
-            log.debug("Could not safely delete Property with ID: " + propertyId, e);
-            entityManager.getTransaction().rollback();
         }
         return false;
     }
-    
-    @Transactional
+
     @Override
     public Optional<Property> update(Property property) {
         try {

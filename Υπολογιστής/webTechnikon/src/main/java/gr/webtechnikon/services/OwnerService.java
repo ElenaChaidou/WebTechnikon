@@ -44,6 +44,10 @@ public class OwnerService implements OwnerServiceInterface {
     public Optional<Owner> findOwnerById(Long ownerId) {
         return ownerRepository.findByOwnerId(ownerId);
     }
+    
+//      public Owner findOwnerId(Long ownerId) {
+//        return ownerRepository.findByOwnerId(ownerId).get();
+//    }
 
     @Override
     public List<Owner> findAllOwners() {

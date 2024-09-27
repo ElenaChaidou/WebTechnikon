@@ -20,15 +20,20 @@ public class OwnerRepository implements OwnerRepositoryInterface<Owner, Long, St
     @PersistenceContext(unitName = "Persistence")
     private EntityManager entityManager;
 
-    @Transactional
     @Override
     public Optional<Owner> findByOwnerId(Long ownerId) {
-        Owner owner = entityManager.find(Owner.class, ownerId);
-        return Optional.ofNullable(owner);
+        try {
+            Owner owner = entityManager.find(Owner.class, ownerId);
+            return Optional.ofNullable(owner);
+        } catch (OwnerNotFoundException onfe) {
+            log.debug("Could not find Owner with ID: " + ownerId);
+            System.out.println(onfe.getMessage());
+        }
+        return Optional.empty();
     }
 
-    @Transactional
     @Override
+    @Transactional
     public Optional<Owner> findByVatNumber(Long vatNumber) {
         try {
             TypedQuery<Owner> query = entityManager.createQuery(
@@ -42,8 +47,8 @@ public class OwnerRepository implements OwnerRepositoryInterface<Owner, Long, St
         return Optional.empty();
     }
 
-    @Transactional
     @Override
+    @Transactional
     public Optional<Owner> findByEmail(String email) {
         try {
             TypedQuery<Owner> query = entityManager.createQuery(
@@ -57,8 +62,8 @@ public class OwnerRepository implements OwnerRepositoryInterface<Owner, Long, St
         return Optional.empty();
     }
 
-    @Transactional
     @Override
+    @Transactional
     public Optional<Owner> save(Owner owner) {
         try {
             entityManager.persist(owner);
@@ -69,8 +74,8 @@ public class OwnerRepository implements OwnerRepositoryInterface<Owner, Long, St
         return Optional.empty();
     }
 
-    @Transactional
     @Override
+    @Transactional
     public boolean deleteById(Long ownerId) {
         Owner persistentInstance = entityManager.find(Owner.class, ownerId);
         if (persistentInstance != null) {
@@ -84,8 +89,8 @@ public class OwnerRepository implements OwnerRepositoryInterface<Owner, Long, St
         return false;
     }
 
-    @Transactional
     @Override
+    @Transactional
     public List<Owner> findAll() throws ResourceNotFoundException {
         try {
             TypedQuery<Owner> query = entityManager.createQuery(
@@ -97,8 +102,8 @@ public class OwnerRepository implements OwnerRepositoryInterface<Owner, Long, St
         }
     }
 
-    @Transactional
     @Override
+    @Transactional
     public boolean safeDeleteById(Long ownerId) {
         Owner persistentInstance = entityManager.find(Owner.class, ownerId);
         if (persistentInstance != null) {
@@ -112,9 +117,9 @@ public class OwnerRepository implements OwnerRepositoryInterface<Owner, Long, St
         }
         return false;
     }
-
-    @Transactional
+    
     @Override
+    @Transactional
     public Optional<Owner> update(Owner owner) {
         try {
             Owner o = entityManager.find(Owner.class, owner.getOwnerId());

@@ -7,7 +7,7 @@
              version="2.1">
 
     <persistence-unit name="Persistence" transaction-type="JTA">
-          <jta-data-source>java:/MySqlDSA</jta-data-source>
+          <jta-data-source>java:/MySqlDS</jta-data-source>
         <description>Hibernate JPA Configuration Example</description>
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
@@ -21,4 +21,3 @@
     </persistence-unit>
 
 </persistence>
-

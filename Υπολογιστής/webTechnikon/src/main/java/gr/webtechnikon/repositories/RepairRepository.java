@@ -15,22 +15,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import lombok.NoArgsConstructor;
 
 @Slf4j
 //@ApplicationScoped 
 @RequestScoped 
+@NoArgsConstructor
 public class RepairRepository implements RepairRepositoryInterface<Repair, Long, Date> {
     
-     @PersistenceContext(unitName = "Persistence")
+    @PersistenceContext(unitName = "Persistence")
     private  EntityManager entityManager;
 
-//    private final EntityManager entityManager;
-
-    public RepairRepository() {
-        entityManager = JPAUtil.getEntityManager();
-    }
-
-    @Transactional
     @Override
     public Optional<Repair> findById(Long repairId) {
         try {
@@ -43,8 +38,7 @@ public class RepairRepository implements RepairRepositoryInterface<Repair, Long,
         }
         return Optional.empty();
     }
-    
-    @Transactional
+
     @Override
     public List<Repair> findByPropertyId(Long propertyId) {
         try {
@@ -83,8 +77,7 @@ public class RepairRepository implements RepairRepositoryInterface<Repair, Long,
         }
         return List.of();
     }
-    
-    @Transactional
+
     @Override
     public List<Repair> findByDate(Date dateOfStart) {
         try {
@@ -100,8 +93,7 @@ public class RepairRepository implements RepairRepositoryInterface<Repair, Long,
         }
         return List.of();
     }
-    
-    @Transactional
+
     @Override
     public List<Repair> findByRangeDates(Date dateOfStart, Date dateOfEnd) {
         try {
@@ -118,9 +110,9 @@ public class RepairRepository implements RepairRepositoryInterface<Repair, Long,
         }
         return List.of();
     }
-    @Transactional
 
     @Override
+    @Transactional
     public List<Repair> findAll() {
         try {
             TypedQuery<Repair> query = entityManager.createQuery("SELECT r FROM Repair r", Repair.class);
@@ -132,8 +124,8 @@ public class RepairRepository implements RepairRepositoryInterface<Repair, Long,
         return List.of();
     }
     
-    @Transactional
     @Override
+    @Transactional
     public Optional<Repair> save(Repair repair) {
         try {
             entityManager.getTransaction().begin();
@@ -146,8 +138,7 @@ public class RepairRepository implements RepairRepositoryInterface<Repair, Long,
         }
         return Optional.empty();
     }
-    
-    @Transactional
+
     @Override
     public Optional<Repair> update(Repair repair) {
         try {
@@ -161,9 +152,9 @@ public class RepairRepository implements RepairRepositoryInterface<Repair, Long,
         }
         return Optional.empty();
     }
-    
+
+    @Override       
     @Transactional
-    @Override
     public boolean deleteById(Long repairId) {
         try {
             Repair repair = entityManager.find(Repair.class, repairId);
@@ -180,8 +171,8 @@ public class RepairRepository implements RepairRepositoryInterface<Repair, Long,
         return false;
     }
     
-    @Transactional
     @Override
+    @Transactional
     public boolean safeDeleteById(Long repairId) {
         try {
             Repair repair = entityManager.find(Repair.class, repairId);

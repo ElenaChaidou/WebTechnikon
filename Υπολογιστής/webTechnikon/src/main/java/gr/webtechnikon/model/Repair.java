@@ -1,11 +1,13 @@
 package gr.webtechnikon.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.math.BigDecimal;
 import gr.webtechnikon.enums.RepairType;
 import gr.webtechnikon.enums.RepairStatus;
 import java.util.Date;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -61,7 +63,8 @@ public class Repair {
 
     private boolean deletedRepair;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "propertyId")
     private Property property;
 
