@@ -61,6 +61,7 @@ public class OwnerResource {
 //        }
 //    }
 
+    //works
     @Path("/{id}")
     @PUT
     @Consumes("application/json")
@@ -70,7 +71,7 @@ public class OwnerResource {
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity("Owner ID in the path does not match the ID in the request body").build();
         }
-
+        
         Optional<Owner> updatedOwner = ownerService.updateOwner(owner);
 
         if (updatedOwner.isPresent()) {
@@ -92,12 +93,13 @@ public class OwnerResource {
             return Response.status(Response.Status.NOT_FOUND).entity("Owner not found").build();
         }
     }
-
+    
+    //works
     @Path("/properties/ownerId/{ownerId}")
     @GET
-    public Response getPropertiesByOwnerId(@PathParam("ownerId") Long ownerId) {
-        List<Property> properties = ownerService.getPropertiesByOwnerId(ownerId);
-        return Response.ok(properties).build();
+    public List<Property> getPropertiesByOwnerId(@PathParam("ownerId") Long ownerId) {
+        
+        return ownerService.getPropertiesByOwnerId(ownerId);
     }
 
     //works
@@ -114,12 +116,14 @@ public class OwnerResource {
     }
 
 //    
-//    @GET
-//    @Path("/{ownerId}/repairs")
-//    public Response getRepairsForOwner(@PathParam("ownerId") Long ownerId) {
-//        List<Repair> repairs = ownerService.getRepairsForOwner(ownerId);
-//        return Response.ok(repairs).build();
-//    }
+    @GET
+    @Path("/{ownerId}/repairs")
+    public Response getRepairsForOwner(@PathParam("ownerId") Long ownerId) {
+        List<Repair> repairs = ownerService.getRepairsForOwner(ownerId);
+        return Response.ok(repairs).build();
+    }
+    
+    //works
     @Path("/{ownerId}/properties")
     @POST
     public Response createProperty(@PathParam("ownerId") Long ownerId, Property property) {
@@ -148,6 +152,7 @@ public class OwnerResource {
         }
     }
 
+    //works
     @Path("/properties/{propertyId}")
     @PUT
     public Response updateProperty(@PathParam("propertyId") Long propertyId, Property property) {
@@ -162,7 +167,7 @@ public class OwnerResource {
     @Path("/properties/{propertyId}")
     @DELETE
     public Response deleteProperty(@PathParam("propertyId") Long id) {
-        boolean isDeleted = ownerService.safeDeleteOwnerById(id);
+        boolean isDeleted = ownerService.deleteProperty(id);
         if (isDeleted) {
             return Response.noContent().build();
         } else {
@@ -170,6 +175,7 @@ public class OwnerResource {
         }
     }
 
+    //works
     @Path("/repairs")
     @POST
     public Response createRepair(Repair repair) {
@@ -180,7 +186,8 @@ public class OwnerResource {
             return Response.status(Response.Status.BAD_REQUEST).entity("Failed to create repair").build();
         }
     }
-
+    
+    //works
     @Path("/repairs/{repairId}")
     @PUT
     public Response updateRepair(@PathParam("repairId") Long repairId, Repair repair) {
@@ -192,7 +199,7 @@ public class OwnerResource {
         }
     }
 
-    // Delete a repair
+    // works
     @Path("/repairs/{repairId}")
     @DELETE
     public Response deleteRepair(@PathParam("repairId") Long repairId) {

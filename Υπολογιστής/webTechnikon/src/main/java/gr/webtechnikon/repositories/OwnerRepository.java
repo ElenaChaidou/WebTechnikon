@@ -21,6 +21,7 @@ public class OwnerRepository implements OwnerRepositoryInterface<Owner, Long, St
     private EntityManager entityManager;
 
     @Override
+    @Transactional
     public Optional<Owner> findByOwnerId(Long ownerId) {
         try {
             Owner owner = entityManager.find(Owner.class, ownerId);

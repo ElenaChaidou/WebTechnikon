@@ -3,13 +3,11 @@ package gr.webtechnikon.repositories;
 import gr.webtechnikon.exceptions.CustomException;
 import gr.webtechnikon.exceptions.OwnerNotFoundException;
 import gr.webtechnikon.model.Property;
-import gr.webtechnikon.utility.JPAUtil;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
-import java.text.ParseException;
 import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.util.Optional;
@@ -36,18 +34,20 @@ public class PropertyRepository implements PropertyRepositoryInterface<Property,
         return Optional.empty();
     }
 
+    
     @Override
+    @Transactional
     public List<Property> findByOwnerId(Long ownerId) {
         try {
-            entityManager.getTransaction().begin();
+//            entityManager.getTransaction().begin();
             TypedQuery<Property> query = entityManager.createQuery(
                     "SELECT p FROM Property p WHERE p.owner.OwnerId = :ownerId", Property.class); //paizei na einai ownerId
             query.setParameter("ownerId", ownerId);
-            entityManager.getTransaction().commit();
+//            entityManager.getTransaction().commit();
             return query.getResultList();
         } catch (OwnerNotFoundException oe) {
             log.debug("Could not find Properties for Owner ID: " + ownerId);
-            entityManager.getTransaction().rollback();
+//            entityManager.getTransaction().rollback();
             System.out.println(oe.getMessage());
         }
         return List.of();
@@ -87,13 +87,13 @@ public class PropertyRepository implements PropertyRepositoryInterface<Property,
     @Transactional
     public Optional<Property> save(Property property) {
         try {
-            entityManager.getTransaction().begin();
+//            entityManager.getTransaction().begin();
             entityManager.persist(property);
-            entityManager.getTransaction().commit();
+//            entityManager.getTransaction().commit();
             return Optional.of(property);
         } catch (Exception e) {
             log.debug("Could not save Property", e);
-            entityManager.getTransaction().rollback();
+//            entityManager.getTransaction().rollback();
         }
         return Optional.empty();
     }
@@ -133,26 +133,27 @@ public class PropertyRepository implements PropertyRepositoryInterface<Property,
     }
 
     @Override
+    @Transactional
     public Optional<Property> update(Property property) {
         try {
-            entityManager.getTransaction().begin();
+//            entityManager.getTransaction().begin();
             Property p = entityManager.find(Property.class, property.getPropertyId());
             if (p != null) {
 
                 p.setAddress(property.getAddress());
                 p.setYearOfConstruction(property.getYearOfConstruction());
                 p.setPropertyType(property.getPropertyType());
-                p.setOwner(property.getOwner());
+         
 
                 entityManager.merge(p);
-                entityManager.getTransaction().commit();
+//                entityManager.getTransaction().commit();
                 return Optional.of(p);
             } else {
                 log.debug("Property with ID: " + property.getPropertyId() + " not found for update.");
             }
         } catch (Exception e) {
             log.debug("Could not update Property", e);
-            entityManager.getTransaction().rollback();
+//            entityManager.getTransaction().rollback();
         }
         return Optional.empty();
     }
