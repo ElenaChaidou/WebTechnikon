@@ -29,7 +29,8 @@ public interface AdminServiceInterface {
     Optional<Property> createProperty(Property property);
     Optional<Property> updateProperty(Property property);
     boolean deleteProperty(Long propertyId);
-    List<Property> searchPropertyByVatNumber(Long vatNumber);
+//    List<Property> searchPropertyByVatNumber(Long vatNumber);
+    List<Property> searchPropertyOwnerId(Long ownerId);
     Optional<Property> searchPropertyById(Long propertyId);
     
     List<Repair> getAllRepairs();

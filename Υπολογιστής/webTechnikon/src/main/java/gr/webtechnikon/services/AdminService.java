@@ -155,9 +155,14 @@ public class AdminService implements AdminServiceInterface {
         return propertyRepository.safeDeleteById(propertyId);
     }
     
-    @Override
-    public List<Property> searchPropertyByVatNumber(Long vatNumber) {
-        return propertyRepository.findByVatNumber(vatNumber);
+//    @Override
+//    public List<Property> searchPropertyByVatNumber(Long vatNumber) {
+//        return propertyRepository.findByVatNumber(vatNumber);
+//    }
+    
+        @Override
+    public List<Property> searchPropertyOwnerId(Long ownerId) {
+        return propertyRepository.findByOwnerId(ownerId);
     }
     
     @Override

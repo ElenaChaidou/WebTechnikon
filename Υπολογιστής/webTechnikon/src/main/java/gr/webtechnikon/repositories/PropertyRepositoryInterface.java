@@ -10,7 +10,7 @@ public interface PropertyRepositoryInterface<T, K> {
 
     List<T> findByOwnerId(K ownerId);
     
-    List<T> findByVatNumber(K ownerId);
+//    List<T> findByVatNumber(K ownerId);
 
     List<T> findAll();
 

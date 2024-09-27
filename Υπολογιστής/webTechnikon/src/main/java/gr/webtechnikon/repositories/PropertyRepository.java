@@ -60,23 +60,23 @@ public class PropertyRepository implements PropertyRepositoryInterface<Property,
         return List.of();
     }
     
-    @Transactional
-    @Override
-    public List<Property> findByVatNumber(Long vatNumber) {
-        try {
-            entityManager.getTransaction().begin();
-            TypedQuery<Property> query = entityManager.createQuery(
-                    "SELECT p FROM Property p WHERE p.owner.OwnerId = :ownerId", Property.class); //paizei na einai ownerId
-            query.setParameter("vatNumber", vatNumber);
-            entityManager.getTransaction().commit();
-            return query.getResultList();
-        } catch (OwnerNotFoundException oe) {
-            log.debug("Could not find Properties for Owner ID: " + vatNumber);
-            entityManager.getTransaction().rollback();
-            System.out.println(oe.getMessage());
-        }
-        return List.of();
-    }
+//    @Transactional
+//    @Override
+//    public List<Property> findByVatNumber(Long vatNumber) {
+//        try {
+//            entityManager.getTransaction().begin();
+//            TypedQuery<Property> query = entityManager.createQuery(
+//                    "SELECT p FROM Property p WHERE p.owner.OwnerId = :ownerId", Property.class); //paizei na einai ownerId
+//            query.setParameter("vatNumber", vatNumber);
+//            entityManager.getTransaction().commit();
+//            return query.getResultList();
+//        } catch (OwnerNotFoundException oe) {
+//            log.debug("Could not find Properties for Owner ID: " + vatNumber);
+//            entityManager.getTransaction().rollback();
+//            System.out.println(oe.getMessage());
+//        }
+//        return List.of();
+//    }
     
     @Transactional
     @Override
