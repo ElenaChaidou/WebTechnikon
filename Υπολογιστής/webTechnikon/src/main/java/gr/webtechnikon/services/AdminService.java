@@ -149,7 +149,7 @@ public class AdminService implements AdminServiceInterface {
     }
 
     @Override
-    public Optional<Property> updateProperty(Property property) {
+    public Optional<Property> updateProperty(Long propertyId, Property property) {
         return propertyRepository.update(property);
     }
 

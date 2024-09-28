@@ -19,12 +19,12 @@ import lombok.NoArgsConstructor;
 
 @Slf4j
 //@ApplicationScoped 
-@RequestScoped 
+@RequestScoped
 @NoArgsConstructor
 public class RepairRepository implements RepairRepositoryInterface<Repair, Long, Date> {
-    
+
     @PersistenceContext(unitName = "Persistence")
-    private  EntityManager entityManager;
+    private EntityManager entityManager;
 
     @Override
     @Transactional
@@ -59,24 +59,17 @@ public class RepairRepository implements RepairRepositoryInterface<Repair, Long,
         }
         return List.of();
     }
-    
-    
+
     @Override
     @Transactional
     public List<Repair> findByOwnerId(Long ownerId) {
         try {
-//            entityManager.getTransaction().begin();
             TypedQuery<Repair> query = entityManager.createQuery(
-                    "SELECT repair FROM Repair repair WHERE repair.property.propertyId = :propertyId", Repair.class);
-            query.setParameter("propertyId", ownerId);
-            List<Repair> repairs = query.getResultList();
-//            entityManager.getTransaction().commit();
-            return repairs;
+                    "SELECT repair FROM Repair repair WHERE repair.property.owner.OwnerId = :ownerId", Repair.class);
+            query.setParameter("ownerId", ownerId);
+            return query.getResultList();
         } catch (Exception e) {
-            if (entityManager.getTransaction().isActive()) {
-//                entityManager.getTransaction().rollback();
-            }
-            log.error("Error finding repairs by Property ID: " + ownerId, e);
+            log.error("Error finding repairs by Owner ID: " + ownerId, e);
         }
         return List.of();
     }
@@ -85,14 +78,11 @@ public class RepairRepository implements RepairRepositoryInterface<Repair, Long,
     @Transactional
     public List<Repair> findByDate(Date dateOfStart) {
         try {
-//            entityManager.getTransaction().begin();
             TypedQuery<Repair> query = entityManager.createQuery("SELECT repair FROM Repair repair WHERE repair.dateOfStart = :dateOfStart", Repair.class);
             query.setParameter("dateOfStart", dateOfStart);
             List<Repair> repairs = query.getResultList();
-//            entityManager.getTransaction().commit();
             return repairs;
         } catch (Exception e) {
-//            entityManager.getTransaction().rollback();
             log.error("Error finding repairs by date: " + dateOfStart, e);
         }
         return List.of();
@@ -128,7 +118,7 @@ public class RepairRepository implements RepairRepositoryInterface<Repair, Long,
         }
         return List.of();
     }
-    
+
     @Override
     @Transactional
     public Optional<Repair> save(Repair repair) {
@@ -159,7 +149,7 @@ public class RepairRepository implements RepairRepositoryInterface<Repair, Long,
         return Optional.empty();
     }
 
-    @Override       
+    @Override
     @Transactional
     public boolean deleteById(Long repairId) {
         try {
@@ -176,7 +166,7 @@ public class RepairRepository implements RepairRepositoryInterface<Repair, Long,
         }
         return false;
     }
-    
+
     @Override
     @Transactional
     public boolean safeDeleteById(Long repairId) {
@@ -195,9 +185,9 @@ public class RepairRepository implements RepairRepositoryInterface<Repair, Long,
         }
         return false;
     }
-        
-        @Transactional
-        public List<Repair> getPendingRepairs() {
+
+    @Transactional
+    public List<Repair> getPendingRepairs() {
         RepairRepository getRepairs = new RepairRepository();
         List<Repair> allRepairs = getRepairs.findAll();
         return allRepairs.stream().filter((Repair pendingRepair) -> RepairStatus.PENDING.equals(pendingRepair.getRepairStatus())).collect(Collectors.toList());

@@ -32,20 +32,21 @@ public class OwnerRepository implements OwnerRepositoryInterface<Owner, Long, St
         }
         return Optional.empty();
     }
-    
+
     @Override
     @Transactional
     public Optional<Owner> findByVatNumber(Long vatNumber) {
         try {
-            Owner owner = entityManager.find(Owner.class, vatNumber);
+            TypedQuery<Owner> query = entityManager.createQuery(
+                    "SELECT o FROM Owner o WHERE o.VatNumber = :vatNumber", Owner.class);
+            query.setParameter("vatNumber", vatNumber);
+            Owner owner = query.getSingleResult();
             return Optional.ofNullable(owner);
-        } catch (OwnerNotFoundException onfe) {
-            log.debug("Could not find Owner with VT: " + vatNumber);
-            System.out.println(onfe.getMessage());
+        } catch (Exception e) {
+            log.debug("Could not find Owner with VAT: " + vatNumber, e);
         }
         return Optional.empty();
     }
-
 //    @Override
 //    @Transactional
 //    public Optional<Owner> findByVatNumber(Long vatNumber) {
@@ -66,10 +67,10 @@ public class OwnerRepository implements OwnerRepositoryInterface<Owner, Long, St
     public Optional<Owner> findByEmail(String email) {
         try {
             TypedQuery<Owner> query = entityManager.createQuery(
-                    "SELECT o FROM Owner o WHERE o.Email = :email AND o.deleted = false", Owner.class);
+                    "SELECT o FROM Owner o WHERE o.Email = :email AND o.deletedOwner = false", Owner.class);
             query.setParameter("email", email);
-            Owner owner = query.getSingleResult();
-            return Optional.of(owner);
+            List<Owner> owners = query.getResultList();
+            return owners.stream().findFirst();
         } catch (Exception e) {
             log.debug("Could not find an Owner with email: {}", email, e);
         }
@@ -116,6 +117,7 @@ public class OwnerRepository implements OwnerRepositoryInterface<Owner, Long, St
         }
     }
 
+    //works
     @Override
     @Transactional
     public boolean safeDeleteById(Long ownerId) {
@@ -131,7 +133,7 @@ public class OwnerRepository implements OwnerRepositoryInterface<Owner, Long, St
         }
         return false;
     }
-    
+
     @Override
     @Transactional
     public Optional<Owner> update(Owner owner) {
