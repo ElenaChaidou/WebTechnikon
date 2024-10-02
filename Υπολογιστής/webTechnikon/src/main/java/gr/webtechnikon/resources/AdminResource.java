@@ -321,10 +321,11 @@ public class AdminResource {
 //        List<Repair> repairs = adminService.getAllRepairs();
 //        return Response.ok(repairs).build();
 //    }
-//    @GET
-//    @Path("/repairs/pending")
-//    public Response getPendingRepairs() {
-//        List<Repair> pendingRepairs = adminService.getPendingRepairs();
-//        return Response.ok(pendingRepairs).build();
-//    }
+    
+    @Path("/repairs/pending")
+    @GET    
+    public Response getPendingRepairs() {
+        List<Repair> pendingRepairs = adminService.getPendingRepairs();
+        return Response.ok(pendingRepairs).build();
+    }
 }

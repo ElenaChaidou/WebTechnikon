@@ -186,11 +186,11 @@ public class RepairRepository implements RepairRepositoryInterface<Repair, Long,
         return false;
     }
 
-    @Transactional
+     @Transactional
     public List<Repair> getPendingRepairs() {
-        RepairRepository getRepairs = new RepairRepository();
-        List<Repair> allRepairs = getRepairs.findAll();
-        return allRepairs.stream().filter((Repair pendingRepair) -> RepairStatus.PENDING.equals(pendingRepair.getRepairStatus())).collect(Collectors.toList());
-
+        List<Repair> allRepairs = findAll();
+        return allRepairs.stream()
+                .filter(repair -> RepairStatus.PENDING.equals(repair.getRepairStatus()))
+                .collect(Collectors.toList());
     }
 }
