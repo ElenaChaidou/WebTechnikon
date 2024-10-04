@@ -1,0 +1,780 @@
+{
+	"info": {
+		"_postman_id": "ff237dd4-2d1f-462e-a0f2-a7b893bf5ffa",
+		"name": "WebTechnikon",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38397496"
+	},
+	"item": [
+		{
+			"name": "StartPage",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ping",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/jen",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"jen"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AllOwners",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/owners",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"owners"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OwnerByOwnerId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/owners/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"owners",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OwnerByOwnerId",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/owners/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"owners",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "propertiesByPropertyId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/owners/properties/propertyId/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"owners",
+						"properties",
+						"propertyId",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "propertiesByOwnerId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/owners/properties/ownerId/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"owners",
+						"properties",
+						"ownerId",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateOwner",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ownerId\": 2,\r\n    \"address\": \"Vasilissis Sofias 100\",\r\n    \"email\": \"xaroula@mail.com\",\r\n    \"password\": \"0000000000000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/owners/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"owners",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateProperty",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n    \"propertyId\": 4,\r\n    \"address\": \"Panepistimiou 1000000\",\r\n    \"yearOfConstruction\": 1995,\r\n    \"propertyType\": \"DETACHED_HOUSE\"\r\n\r\n}\r\n    ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/owners/properties/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"owners",
+						"properties",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin-repairsByOwnerId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/owners/5/repairs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"owners",
+						"5",
+						"repairs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createRepair",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \r\n        \"repairType\": \"INSULATION\",\r\n        \"shortDescription\": \"Fixing insulation\",\r\n        \"dateOfSubmission\": 1709589600000,\r\n        \"descriptionOfWork\": \"Insulate the attic\",\r\n        \"proposedDateOfStart\": 1711918800000,\r\n        \"proposedDateOfEnd\": 1712264400000,\r\n        \"proposedCost\": 300000000000,\r\n        \"acceptance\": false,\r\n        \"repairStatus\": \"PENDING\",\r\n        \"dateOfStart\": 1709330400000,\r\n        \"dateOfEnd\": 1715202000000,\r\n        \"deletedRepair\": false\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/owners/repairs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"owners",
+						"repairs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateRepair",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"repairId\": 2,\r\n        \"repairType\": \"INSULATION\",\r\n        \"shortDescription\": \"Fixing insulation\",\r\n        \"dateOfSubmission\": 1709589600000,\r\n        \"descriptionOfWork\": \"Insulate the attic\",\r\n        \"proposedDateOfStart\": 1711918800000,\r\n        \"proposedDateOfEnd\": 1712264400000,\r\n        \"proposedCost\": 4000,\r\n        \"acceptance\": false,\r\n        \"repairStatus\": \"PENDING\",\r\n        \"dateOfStart\": 1709330400000,\r\n        \"dateOfEnd\": 1715202000000,\r\n        \"deletedRepair\": false\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/owners/repairs/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"owners",
+						"repairs",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteProperty",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/owners/properties/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"owners",
+						"properties",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createProperty",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n    \"propertyCode\": 6583,\r\n    \"address\": \"Panepistimiou 1000000\",\r\n    \"yearOfConstruction\": 1999,\r\n    \"propertyType\": \"DETACHED_HOUSE\",\r\n    \"deletedProperty\": false,\r\n    \"e9\": 6583\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/owners/3/properties",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"owners",
+						"3",
+						"properties"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin-updateOwner",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ownerId\": 3,\r\n    \"address\": \"Vasilissis Sofias 10000\",\r\n    \"email\": \"xaroula@mail.com\",\r\n    \"password\": \"0000000000000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/admin/updateOwner/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"admin",
+						"updateOwner",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin-activeRepairs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/admin/active-repairs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"admin",
+						"active-repairs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin-createOwner",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"password\": \"sG78t&3Kj5!EEEEE\",\r\n    \"propertyList\": [\r\n        {\r\n            \r\n            \"propertyCode\": 1111,\r\n            \"address\": \"Ermou 1112\",\r\n            \"yearOfConstruction\": 2026,\r\n            \"propertyType\": \"MAISONETTE\",\r\n            \"deletedProperty\": false,\r\n            \"e9\": 1234\r\n        }\r\n    ],\r\n    \"deletedOwner\": false,\r\n    \"username\": \"mar89\",\r\n    \"address\": \"Vasilissis Sofias 223\",\r\n    \"surName\": \"nik\",\r\n    \"email\": \"mar@mail.com\",\r\n    \"vatNumber\": 789102123,\r\n    \"phoneNumber\": \"6943012311\",\r\n    \"name\": \"mar\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/admin/createOwners",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"admin",
+						"createOwners"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin-findOwnerByVatNumber",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/admin/owners/vat/765432109",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"admin",
+						"owners",
+						"vat",
+						"765432109"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin-ownerByEmail",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/admin/owners/email/hkontou@mail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"admin",
+						"owners",
+						"email",
+						"hkontou@mail.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin-createPropertyById",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n    \"propertyCode\": 6583,\r\n    \"address\": \"Panepistimiou 1000000\",\r\n    \"yearOfConstruction\": 1999,\r\n    \"propertyType\": \"DETACHED_HOUSE\",\r\n    \"deletedProperty\": false,\r\n    \"e9\": 6583\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/admin/8/properties",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"admin",
+						"8",
+						"properties"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin-updatePropertyById",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"propertyId\": 8,\r\n    \"address\": \"Panepistimiou 1000000\",\r\n    \"yearOfConstruction\": 1995,\r\n    \"propertyType\": \"DETACHED_HOUSE\"\r\n\r\n}\r\n    ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/admin/updateProperties/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"admin",
+						"updateProperties",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin-propertiesByVatNumber",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/admin/properties/vat/987654321",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"admin",
+						"properties",
+						"vat",
+						"987654321"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin-propertiesById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/admin/properties/id/9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"admin",
+						"properties",
+						"id",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin-updateRepair",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"repairId\": 2,\r\n        \"repairType\": \"INSULATION\",\r\n        \"shortDescription\": \"Fixing insulation\",\r\n        \"dateOfSubmission\": 1709589600000,\r\n        \"descriptionOfWork\": \"Insulate the attic\",\r\n        \"proposedDateOfStart\": 1711918800000,\r\n        \"proposedDateOfEnd\": 1712264400000,\r\n        \"proposedCost\": 4000,\r\n        \"acceptance\": false,\r\n        \"repairStatus\": \"PENDING\",\r\n        \"dateOfStart\": 1709330400000,\r\n        \"dateOfEnd\": 1715202000000,\r\n        \"deletedRepair\": false\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/admin/updateRepairs/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"admin",
+						"updateRepairs",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin-createRepair",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \r\n        \"repairType\": \"INSULATION\",\r\n        \"shortDescription\": \"Fixing insulation\",\r\n        \"dateOfSubmission\": 1709589600000,\r\n        \"descriptionOfWork\": \"Insulate the attic\",\r\n        \"proposedDateOfStart\": 1711918800000,\r\n        \"proposedDateOfEnd\": 1712264400000,\r\n        \"proposedCost\": 300000000000,\r\n        \"acceptance\": false,\r\n        \"repairStatus\": \"PENDING\",\r\n        \"dateOfStart\": 1709330400000,\r\n        \"dateOfEnd\": 1715202000000,\r\n        \"deletedRepair\": false\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/admin/createRepair",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"admin",
+						"createRepair"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin-repairsByDate",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/admin/repairs/2024-02-02",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"admin",
+						"repairs",
+						"2024-02-02"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin-repairsById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/admin/repairsById/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"admin",
+						"repairsById",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin-deleteOwnerById",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/admin/owner/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"admin",
+						"owner",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin-deletePropertyById",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/WebTechnikon/resources/admin/properties/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"WebTechnikon",
+						"resources",
+						"admin",
+						"properties",
+						"5"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
